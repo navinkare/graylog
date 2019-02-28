@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration packages="biz.paluch.logging.gelf.log4j2">
+    <Properties>
+        <Property name="basePath">../Log4j2Example/logs</Property>
+    </Properties>
+    <Appenders>
+
+        <!-- Console Appender -->
+        <Console name="STDOUT" target="SYSTEM_OUT">
+            <PatternLayout pattern="%-5p | %d{yyyy-MM-dd HH:mm:ss} | [%t] %C{2} (%F:%L) - %m%n" />
+        </Console>
+
+        <!--<Gelf name="gelf" host="udp:log.deltadentalwi.com" port="12200" version="1.1" extractStackTrace="true"
+              filterStackTrace="true" mdcProfiling="true" includeFullMdc="true" maximumMessageSize="8192"
+              originHost="%host{fqdn}" >
+            <Field name="gl2_source_input" literal="5c375ff2ec85f26d02c75823" />
+            <Field name="source" literal="STESMULEDIN" />
+
+        </Gelf>-->
+
+        <Gelf name="gelf" host="udp:log.deltadentalwi.com" port="12200" version="1.1" extractStackTrace="true"
+              filterStackTrace="true" mdcProfiling="true" includeFullMdc="true" maximumMessageSize="8192"
+              ignoreExceptions="true">
+            <Field name="timestamp" pattern="%d{dd MMM yyyy HH:mm:ss,SSS}" />
+            <Field name="level" pattern="%level" />
+            <Field name="simpleClassName" pattern="%C{1}" />
+            <Field name="className" pattern="%C" />
+            <Field name="server" pattern="%host" />
+            <Field name="server.fqdn" pattern="%host{fqdn}" />
+            <Field name="gl2_source_input" literal="5c375ff2ec85f26d02c75823" />
+            <Field name="source" literal="STESMULEDIN" />
+
+            <DynamicMdcFields regex="mdc.*" />
+            <DynamicMdcFields regex="(mdc|MDC)fields" />
+        </Gelf>
+
+
+
+    </Appenders>
+    <Loggers>
+        <Root level="trace">
+            <AppenderRef ref="STDOUT" />
+            <AppenderRef ref="gelf" />
+
+        </Root>
+    </Loggers>
+</Configuration>
