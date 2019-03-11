@@ -2,6 +2,7 @@ package com.learning.log4j;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.ThreadContext;
 
 /**
  * Hello world!
@@ -12,6 +13,10 @@ public class App
     private static final Logger LOG = LogManager.getLogger(App.class);
     public static void main( String[] args )
     {
+
+        ThreadContext.put("resourceName", "resourceName");
+
+
         LOG.debug("This Will Be Printed On Debug");
         LOG.info("This Will Be Printed On Info");
         LOG.warn("This Will Be Printed On Warn");
